@@ -28,7 +28,7 @@ export default ({ data, location }) => {
 }
 
 export const query = graphql`
-    query getAirtable($slug: String!) {
+    query getAirtable($slug: String) {
         site {
             siteMetadata {
               title

@@ -11,27 +11,25 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location}>
        <div>
-        {
-          posts.map(({ node: post }, index) => {
-            return (
-              <div key={index}>
-                {post && (
-                  <>
-                    <h3>{post.data.title}</h3>
-                    {post.data && post.data.author &&
-                      <h5>{post.data.author}</h5>
-                    }
-                    {post && post.data.image && 
-                      <Link to={post.data && post.data.slug}>
-                        <img src={post.data.image[0].url} alt=''/>
-                      </Link>
-                    }
-                  </>
-                )}                
-              </div>
-            )  
-          })
-        }
+        {posts.map(({ node: post }, index) => {
+          return (
+            <>
+              {post && post.data && (
+                <div key={index}>
+                  <h3>{post.data.title}</h3>
+                  {post.data.author &&
+                    <h5>{post.data.author}</h5>
+                  }
+                  {post.data.image && 
+                    <Link to={post.data.slug}>
+                      <img src={post.data.image[0].url} alt=''/>
+                    </Link>
+                  }                                
+                </div>
+              )}
+            </>
+          )}
+        )}
       </div>
      {/*  <SEO title="All posts" />
       {posts.map(({ node }) => {
