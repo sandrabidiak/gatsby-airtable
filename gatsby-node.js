@@ -10,7 +10,6 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             table
-            recordId
             data {
                 slug
             }
@@ -24,7 +23,7 @@ exports.createPages = async ({ graphql, actions }) => {
   result.data.allAirtable.edges.forEach(({ node }) => {
     createPage({
         path: `/${node.data.slug}`,
-        component: path.resolve(`./src/templates/post.js`),
+        component: path.resolve(`./src/templates/post.tsx`),
         context: {
             slug: node.data.slug
         },

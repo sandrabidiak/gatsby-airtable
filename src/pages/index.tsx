@@ -1,5 +1,4 @@
 import React from 'react'
-import { WindowLocation } from '@reach/router'
 import { Link, graphql, PageProps } from "gatsby"
 import Layout from "../components/layout"
 
@@ -20,16 +19,21 @@ interface Props {
                 }
             }]
         }
+        site: {
+            siteMetadata: {
+              title: string
+            }
+        }
     }
-    location?:  WindowLocation
 }
 
 class BlogIndex extends React.Component<Props> {
     render() {
         const { edges } = this.props.data.allAirtable
+        const siteTitle = this.props.data.site.siteMetadata.title
 
         return (
-            <Layout location={this.props.location}>
+            <Layout location={window.location} title={siteTitle}>
                 <div>
                     {edges.map(({ node: post }, index) => {
                         return (
@@ -74,6 +78,11 @@ export const pageQuery = graphql`
                     }
                 }
             }      
+        }
+        site {
+            siteMetadata {
+              title
+            }
         }
     }
 `

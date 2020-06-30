@@ -1,21 +1,18 @@
 import React, { FunctionComponent } from 'react'
-import { WindowLocation } from '@reach/router'
 import { Link } from 'gatsby'
 import { rhythm, scale } from '../utils/typography'
 
 interface ParentProps {
     children?: React.ReactNode
     title?: string
-    location?:  WindowLocation
+    location?: Location
 }
 
 const Layout: FunctionComponent<ParentProps> = (props) => {
     const { children, title, location } = props
     const rootPath = `${__PATH_PREFIX__}/`
     let header
-
-    console.log(location, rootPath)
-
+    
     if (location && location.pathname === rootPath) {
         header = (
         <h1
