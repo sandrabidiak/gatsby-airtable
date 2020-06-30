@@ -1,12 +1,22 @@
-import React from "react"
-import { Link } from "gatsby"
-import { rhythm, scale } from "../utils/typography"
+import React, { FunctionComponent } from 'react'
+import { WindowLocation } from '@reach/router'
+import { Link } from 'gatsby'
+import { rhythm, scale } from '../utils/typography'
 
-const Layout = ({ location, title, children }) => {
+interface ParentProps {
+    children?: React.ReactNode
+    title?: string
+    location?:  WindowLocation
+}
+
+const Layout: FunctionComponent<ParentProps> = (props) => {
+    const { children, title, location } = props
     const rootPath = `${__PATH_PREFIX__}/`
     let header
 
-    if (location.pathname === rootPath) {
+    console.log(location, rootPath)
+
+    if (location && location.pathname === rootPath) {
         header = (
         <h1
             style={{
