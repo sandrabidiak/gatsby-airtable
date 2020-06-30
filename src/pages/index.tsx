@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, graphql, PageProps } from "gatsby"
+import { Typography } from '@material-ui/core'
+import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 
 interface Props {
@@ -35,30 +36,42 @@ class BlogIndex extends React.Component<Props> {
 
         return (
             <Layout location={window.location} title={siteTitle}>
-                <div>
-                    {edges.map(({ node: post }, index) => {
-                        return (
-                            <div key={index}>
-                                {post && post.data && (
-                                    <>
-                                        <h3>{post.data.title}</h3>
-                                        {post.data.date &&
-                                            <h6>{post.data.date}</h6>
-                                        }
-                                        {post.data.author &&
-                                            <h5>{post.data.author}</h5>
-                                        }
-                                        {post.data.image && 
-                                            <Link to={post.data.slug}>
-                                                <img src={post.data.image[0].url} alt=''/>
-                                            </Link>
-                                        }                                
-                                    </>
-                                )}
-                            </div>
-                        )}
+                {edges.map(({ node: post }, index) => {
+                    return (
+                        <div key={index}>
+                            {post && post.data && (
+                                <>
+                                    {post.data.date &&
+                                        <Typography variant="overline" display="block" gutterBottom>
+                                            {post.data.date}
+                                        </Typography>                                                
+                                    }
+                                    <Typography 
+                                        variant="h5" 
+                                        display="block" 
+                                        gutterBottom
+                                        style={{
+                                            fontWeight: 'bold'
+                                        }}
+                                    >
+                                        {post.data.title}
+                                    </Typography>
+                                    {post.data.image && 
+                                        <Link 
+                                            to={post.data.slug}
+                                            style={{
+                                                boxShadow: `none`,
+                                                color: `inherit`,
+                                            }}
+                                        >
+                                            <img src={post.data.image[0].url} alt=''/>
+                                        </Link>
+                                    }                                
+                                </>
+                            )}
+                        </div>
                     )}
-                </div>
+                )}
             </Layout>
         )
     }    

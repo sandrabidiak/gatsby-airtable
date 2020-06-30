@@ -1,6 +1,12 @@
 import React, { FunctionComponent } from 'react'
+import { makeStyles } from '@material-ui/styles'
+import { Theme, Typography } from '@material-ui/core'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
+
+const useStyles = makeStyles((theme: Theme) =>({
+    
+}))
 
 interface Props {
   data: {
@@ -28,24 +34,43 @@ const Post: FunctionComponent<Props> = (props) => {
     const post = props.data && props.data.airtable && props.data.airtable
     const siteTitle = props.data.site.siteMetadata.title
 
+    const classes = useStyles()
     return (
         <Layout location={window.location} title={siteTitle}>
             {post && post.data && 
                 <div>
                     {post.data.title &&
-                        <h1>{post.data.title}</h1>
+                        <Typography 
+                            variant="h3" 
+                            style={{
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            {post.data.title}
+                        </Typography>
                     }
                     {post.data.date &&
-                        <h6>{post.data.date}</h6>
+                        <Typography variant="overline" display="block">
+                            {post.data.date}
+                        </Typography>
                     }
-                    {post.data.author &&
-                        <h3>{post.data.author}</h3>
+                    {post.data.author &&                        
+                        <Typography 
+                            variant="subtitle2" 
+                            gutterBottom
+                            style={{
+                                fontWeight: 'bold',
+                                fontStyle: 'normal'
+                            }}
+                        >
+                            {post.data.author}
+                        </Typography>
                     }
                     {post.data.image && 
                         <img src={post.data.image[0].url} alt=''/>
                     }
                     {post.data.PostMarkdown &&
-                        <div 
+                        <Typography 
                             dangerouslySetInnerHTML={{ __html: post.data.PostMarkdown }}
                         />
                     }
