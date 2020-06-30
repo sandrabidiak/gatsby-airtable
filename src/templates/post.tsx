@@ -10,6 +10,7 @@ interface Props {
             title: string
             author: string
             PostMarkdown: string
+            date: string
             image: [{
                 url: string
             }]
@@ -26,13 +27,16 @@ interface Props {
 const Post: FunctionComponent<Props> = (props) => {
     const post = props.data && props.data.airtable && props.data.airtable
     const siteTitle = props.data.site.siteMetadata.title
-    
+
     return (
         <Layout location={window.location} title={siteTitle}>
             {post && post.data && 
                 <div>
                     {post.data.title &&
                         <h1>{post.data.title}</h1>
+                    }
+                    {post.data.date &&
+                        <h6>{post.data.date}</h6>
                     }
                     {post.data.author &&
                         <h3>{post.data.author}</h3>
@@ -66,7 +70,7 @@ export const query = graphql`
                 title
                 author
                 PostMarkdown
-                date(formatString: "")
+                date(formatString: "MMMM DD, YYYY")
                 image {
                     url
                 }

@@ -12,6 +12,7 @@ interface Props {
                         title: string
                         author: string
                         PostMarkdown: string
+                        date: string
                         image: [{
                             url: string
                         }]
@@ -41,6 +42,9 @@ class BlogIndex extends React.Component<Props> {
                                 {post && post.data && (
                                     <>
                                         <h3>{post.data.title}</h3>
+                                        {post.data.date &&
+                                            <h6>{post.data.date}</h6>
+                                        }
                                         {post.data.author &&
                                             <h5>{post.data.author}</h5>
                                         }
@@ -64,7 +68,7 @@ export default BlogIndex
 
 export const pageQuery = graphql`
     query {
-        allAirtable {
+        allAirtable(sort: {fields: [data___date], order: DESC}) {
             edges {
                 node {
                     data {
@@ -72,6 +76,7 @@ export const pageQuery = graphql`
                         title
                         author
                         PostMarkdown
+                        date(formatString: "MMMM DD, YYYY")
                         image {
                             url
                         }

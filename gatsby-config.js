@@ -12,6 +12,7 @@ module.exports = {
             {
                 baseId: 'appU9gxwPUcsjPakV',
                 tableName: 'CMS',
+                tableView: 'published',
             },
         ]
       }
@@ -53,6 +54,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-material-ui`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
