@@ -70,7 +70,9 @@ const Post: FunctionComponent<Props> = (props) => {
                         <img src={post.data.image[0].url} alt=''/>
                     }
                     {post.data.PostMarkdown &&
-                        <Typography 
+                        <Typography
+                            variant='body1'
+                            display='block' 
                             dangerouslySetInnerHTML={{ __html: post.data.PostMarkdown }}
                         />
                     }
