@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Starter Blog`,
@@ -7,12 +11,12 @@ module.exports = {
     {
       resolve: "gatsby-source-airtable",
       options: {
-        apiKey: 'keyqLEvLCYHYE1jbX',
+        apiKey: process.env.AIRTABLE_API_KEY,
         tables: [
           {
-            baseId: 'appU9gxwPUcsjPakV',
+            baseId: process.env.AIRTABLE_BASE_ID,
             tableName: 'CMS',
-            tableView: 'published',
+            // tableView: 'published',
           },
         ]
       }

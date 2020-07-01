@@ -95,19 +95,6 @@ const Post: FunctionComponent<Props> = (props) => {
                         {author}
                     </Typography>
                 }
-                {/* (largeImg || fullImg) && 
-                    <Grid container item xs={12} justify="center">
-                        <Box style={{ maxHeight: 500 }}>
-                            <img
-                                src={largeImg || fullImg} 
-                                srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
-                                sizes="(max-width: 700px) 600px, 100vw"
-                                alt={title}
-                                className={classes.media}
-                            />
-                        </Box>
-                    </Grid>                    
-                */}
                 <Grid container item xs={12} justify="center">
                     <Box style={{ maxHeight: 500 }}>
                         <img

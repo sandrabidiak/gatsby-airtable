@@ -75,7 +75,7 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                             <Grid 
                                 item 
                                 xs={12}
-                                style={{ padding: '0 12px' }}
+                                style={{ padding: 0 }}
                             >
                                 <Typography variant="overline" display="block" gutterBottom>
                                     {date}
@@ -86,7 +86,7 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                             <Grid 
                                 item 
                                 xs={12}
-                                style={{ padding: '0 12px' }}
+                                style={{ padding: 0 }}
                             >
                                 <Typography 
                                     variant="h5" 
@@ -110,8 +110,7 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                                             color: `inherit`,
                                         }}
                                     >                                    
-                                        <img 
-                                            // srcSet={`${largeImg}, ${fullImg} 2x`} 
+                                        <img
                                             srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
                                             sizes="(max-width: 700px) 600px, 100vw"
                                             src={largeImg || fullImg}
