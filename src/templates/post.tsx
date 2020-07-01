@@ -113,7 +113,7 @@ const Post: FunctionComponent<Props> = (props) => {
                         <img
                             src={largeImg || fullImg} 
                             srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
-                            sizes="(max-width: 700px) 600px, 100vw"
+                            sizes="(max-width: 800px) 600px, 100vw"
                             alt={title}
                             className={classes.media}
                         />

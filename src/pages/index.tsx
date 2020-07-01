@@ -8,7 +8,8 @@ const useStyles = makeStyles((theme: Theme) =>({
     media: {
         objectFit: 'cover',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        margin: 0
     }
 }))
 
@@ -68,6 +69,7 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                         direction="column"
                         justify="center"
                         alignItems="flex-start"
+                        style={{ marginBottom: 50 }}
                     >
                         {date &&
                             <Grid 

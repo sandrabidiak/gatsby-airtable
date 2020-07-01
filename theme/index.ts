@@ -74,12 +74,6 @@ const theme = createMuiTheme({
                 background: '#fff',
                 alignItems: 'center',
                 flexDirection: 'row'
-            },
-            dot: {
-                backgroundColor: 'rgba(255, 255, 255, 0.3)'
-            },
-            dotActive: {
-                backgroundColor: '#000000'
             }
         },  
     },

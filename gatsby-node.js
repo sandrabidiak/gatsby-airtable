@@ -11,7 +11,7 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             table
             data {
-                slug
+              slug
             }
           }
         }
@@ -25,7 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
         path: `/${node.data.slug}`,
         component: path.resolve(`./src/templates/post.tsx`),
         context: {
-            slug: node.data.slug
+          slug: node.data.slug
         },
     })
   })
