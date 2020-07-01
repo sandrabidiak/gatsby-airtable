@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Theme, Typography, Grid, Box } from '@material-ui/core'
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
+import { Theme, Typography, Grid, Box, MobileStepper, Button } from '@material-ui/core'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 
@@ -8,7 +10,8 @@ const useStyles = makeStyles((theme: Theme) =>({
     media: {
         objectFit: 'cover',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        margin: 0
     }
 }))
 
@@ -25,6 +28,7 @@ interface Props {
                 thumbnails: {
                     full: {
                         url: string
+                        width: number
                     },
                     large: {
                         url: string
@@ -46,15 +50,24 @@ const Post: FunctionComponent<Props> = (props) => {
     const siteTitle = props.data.site.siteMetadata.title
     const post = props.data && props.data.airtable
     const { date, title, image, PostMarkdown, author } = post && post.data
-    const { large, full } = image[0] && image[0].thumbnails
+
+    const [scrollStepperIndex, setScrollStepperIndex] = React.useState<number>(0)
+
+    const { large, full } = image[scrollStepperIndex] && image[scrollStepperIndex].thumbnails
     const largeImg = large && large.url
     const largeImgWidth = large && large.width
     const fullImg = full && full.url
+    const fullImgWidth = full && full.width
 
     const classes = useStyles()
     return (
         <Layout location={window.location} title={siteTitle}> 
-            <div>
+            <Grid 
+                container
+                direction="column"
+                justify="center"
+                alignItems="flex-start"
+            >
                 {title &&
                     <Typography 
                         variant="h3" 
@@ -82,28 +95,75 @@ const Post: FunctionComponent<Props> = (props) => {
                         {author}
                     </Typography>
                 }
-                {(largeImg || fullImg) && 
+                {/* (largeImg || fullImg) && 
+                    <Grid container item xs={12} justify="center">
+                        <Box style={{ maxHeight: 500 }}>
+                            <img
+                                src={largeImg || fullImg} 
+                                srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
+                                sizes="(max-width: 700px) 600px, 100vw"
+                                alt={title}
+                                className={classes.media}
+                            />
+                        </Box>
+                    </Grid>                    
+                */}
                 <Grid container item xs={12} justify="center">
                     <Box style={{ maxHeight: 500 }}>
                         <img
                             src={largeImg || fullImg} 
-                            srcSet={`${largeImg} ${largeImgWidth}, ${fullImg} 1000w`}                        
-                            sizes="(min-width: 600px) 1000px, 100vw"
+                            srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
+                            sizes="(max-width: 700px) 600px, 100vw"
                             alt={title}
                             className={classes.media}
                         />
+                        <MobileStepper
+                            steps={image.length}
+                            position="static"
+                            variant="text"
+                            activeStep={scrollStepperIndex}
+                            style={{ 
+                                display: image.length <= 1 ? 'none' : ''
+                            }}
+                            nextButton={
+                                <Button 
+                                    size="small" 
+                                    color="inherit"
+                                    onClick={() => {
+                                        setScrollStepperIndex((scrollStepperIndex) => scrollStepperIndex + 1)
+                                    }} 
+                                    disabled={scrollStepperIndex === image.length - 1}
+                                >
+                                    Next
+                                    <KeyboardArrowRight />
+                                </Button>
+                            }
+                            backButton={
+                                <Button 
+                                    size="small"
+                                    color="primary" 
+                                    onClick={() => {
+                                        setScrollStepperIndex((scrollStepperIndex) => scrollStepperIndex - 1)
+                                    }} 
+                                    disabled={scrollStepperIndex === 0}
+                                >
+                                    <KeyboardArrowLeft /> 
+                                    Back
+                                </Button>
+                            }
+                        />
                     </Box>
                 </Grid>
-                    
-                }
                 {PostMarkdown &&
                     <Typography
                         variant='body1'
                         display='block' 
+                        style={{
+                            marginTop: image.length <= 1 ? '1rem' : '5rem' }}
                         dangerouslySetInnerHTML={{ __html: PostMarkdown }}
                     />
                 }
-            </div>           
+            </Grid>           
         </Layout>        
     )
 }
@@ -128,6 +188,7 @@ export const query = graphql`
                     thumbnails {
                         full {
                             url
+                            width
                         }
                         large {
                             url

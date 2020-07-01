@@ -9,11 +9,11 @@ module.exports = {
       options: {
         apiKey: 'keyqLEvLCYHYE1jbX',
         tables: [
-            {
-                baseId: 'appU9gxwPUcsjPakV',
-                tableName: 'CMS',
-                tableView: 'published',
-            },
+          {
+            baseId: 'appU9gxwPUcsjPakV',
+            tableName: 'CMS',
+            tableView: 'published',
+          },
         ]
       }
     },

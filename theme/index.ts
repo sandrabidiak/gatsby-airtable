@@ -40,17 +40,16 @@ const theme = createMuiTheme({
         },
     },
     palette: {
-        type: 'dark',
+        type: 'light',
         primary: {
-            main: '#EEEEEE',
+            main: '#000000',
         },
         secondary: {
             main: '#801313',
         },
         background: {
-            default: '#151515',
-        },
-
+            default: '#FFFFFF',
+        }
     },
     overrides: {
         MuiCssBaseline: {
@@ -67,7 +66,22 @@ const theme = createMuiTheme({
             root: {
                 backgroundColor: '#7c7c7c'
             }
-        }   
+        } ,
+        MuiMobileStepper: {
+            root: {
+                display: 'flex',
+                padding: 8,
+                background: '#fff',
+                alignItems: 'center',
+                flexDirection: 'row'
+            },
+            dot: {
+                backgroundColor: 'rgba(255, 255, 255, 0.3)'
+            },
+            dotActive: {
+                backgroundColor: '#000000'
+            }
+        },  
     },
     typography: {
         fontSize: 14,

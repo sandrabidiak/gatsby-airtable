@@ -25,6 +25,7 @@ interface Props {
                             thumbnails: {
                                 full: {
                                     url: string
+                                    width: number
                                 },
                                 large: {
                                     url: string
@@ -58,25 +59,33 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                 const largeImg = large && large.url
                 const largeImgWidth = large && large.width
                 const fullImg = full && full.url
+                const fullImgWidth = full && full.width
 
                 return (
                     <Grid 
                         key={index}
                         container
-                        spacing={3}
                         direction="column"
                         justify="center"
                         alignItems="flex-start"
                     >
                         {date &&
-                            <Grid item xs={12}>
+                            <Grid 
+                                item 
+                                xs={12}
+                                style={{ padding: '0 12px' }}
+                            >
                                 <Typography variant="overline" display="block" gutterBottom>
                                     {date}
                                 </Typography>
                             </Grid>                                                
                         }
                         {title &&
-                            <Grid item xs={12}>
+                            <Grid 
+                                item 
+                                xs={12}
+                                style={{ padding: '0 12px' }}
+                            >
                                 <Typography 
                                     variant="h5" 
                                     display="block" 
@@ -101,8 +110,8 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
                                     >                                    
                                         <img 
                                             // srcSet={`${largeImg}, ${fullImg} 2x`} 
-                                            srcSet={`${largeImg} ${largeImgWidth}, ${fullImg} 1000w`}                        
-                                            sizes="(min-width: 600px) 1000px, 100vw"
+                                            srcSet={`${largeImg} ${largeImgWidth}w, ${fullImg} 800w`}                        
+                                            sizes="(max-width: 700px) 600px, 100vw"
                                             src={largeImg || fullImg}
                                             alt={title}
                                             className={classes.media}
@@ -133,6 +142,7 @@ export const pageQuery = graphql`
                             thumbnails {
                                 full {
                                   url
+                                  width
                                 }
                                 large {
                                   url
