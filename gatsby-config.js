@@ -17,6 +17,12 @@ module.exports = {
             baseId: process.env.AIRTABLE_BASE_ID,
             tableName: 'CMS',
             // tableView: 'published',
+            tableLinks: [`author`]
+          },
+          {
+            baseId: process.env.AIRTABLE_BASE_ID,
+            tableName: 'author',
+            tableLinks: [`CMS`]
           },
         ]
       }

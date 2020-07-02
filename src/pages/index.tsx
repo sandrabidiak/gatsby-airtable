@@ -132,7 +132,10 @@ export default BlogIndex
 
 export const pageQuery = graphql`
     query {
-        allAirtable(sort: {fields: [data___date], order: DESC}) {
+        allAirtable(
+            filter: { table: { eq: "CMS" } },
+            sort: { fields: [data___date], order: DESC }
+        ) {
             edges {
                 node {
                     data {

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft'
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight'
 import { Theme, Typography, Grid, Box, MobileStepper, Button } from '@material-ui/core'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Layout from '../components/layout'
 
 const useStyles = makeStyles((theme: Theme) =>({
@@ -21,7 +21,12 @@ interface Props {
         data: {
             slug: string
             title: string
-            author: string
+            author: [{
+                data: {
+                    slug: string
+                    name: string
+                } 
+            }]
             PostMarkdown: string
             date: string
             image: [{
@@ -49,7 +54,7 @@ interface Props {
 const Post: FunctionComponent<Props> = (props) => {
     const siteTitle = props.data.site.siteMetadata.title
     const post = props.data && props.data.airtable
-    const { date, title, image, PostMarkdown, author } = post && post.data
+    const { slug, date, title, image, PostMarkdown, author } = post && post.data
 
     const [scrollStepperIndex, setScrollStepperIndex] = React.useState<number>(0)
 
@@ -60,6 +65,7 @@ const Post: FunctionComponent<Props> = (props) => {
     const fullImgWidth = full && full.width
 
     const classes = useStyles()
+
     return (
         <Layout location={window.location} title={siteTitle}> 
             <Grid 
@@ -83,17 +89,25 @@ const Post: FunctionComponent<Props> = (props) => {
                         {date}
                     </Typography>
                 }
-                {author &&                        
-                    <Typography 
-                        variant="subtitle2" 
-                        gutterBottom
+                {author[0] && author[0].data && 
+                    <Link 
+                        to={`${__PATH_PREFIX__}/${author[0].data.slug}`}
                         style={{
-                            fontWeight: 'bold',
-                            fontStyle: 'normal'
+                            boxShadow: `none`,
+                            color: `inherit`,
                         }}
-                    >
-                        {author}
-                    </Typography>
+                    >                        
+                        <Typography 
+                            variant="subtitle2" 
+                            gutterBottom
+                            style={{
+                                fontWeight: 'bold',
+                                fontStyle: 'normal'
+                            }}
+                        >
+                            {author[0].data.name}
+                        </Typography>
+                    </Link>
                 }
                 <Grid container item xs={12} justify="center">
                     <Box style={{ maxHeight: 500 }}>
@@ -146,7 +160,8 @@ const Post: FunctionComponent<Props> = (props) => {
                         variant='body1'
                         display='block' 
                         style={{
-                            marginTop: image.length <= 1 ? '1rem' : '5rem' }}
+                            marginTop: image.length <= 1 ? '1rem' : '5rem' 
+                        }}
                         dangerouslySetInnerHTML={{ __html: PostMarkdown }}
                     />
                 }
@@ -158,17 +173,20 @@ const Post: FunctionComponent<Props> = (props) => {
 export default Post
 
 export const query = graphql`
-    query getAirtable($slug: String) {
-        site {
-            siteMetadata {
-              title
-            }
-        }
-        airtable ( data: {slug: { eq: $slug }}) {
+    query getPost($slug: String) {
+        airtable(
+            table: { eq: "CMS" },
+            data: { slug: { eq: $slug } }
+        ) {
             data {
                 slug
                 title
-                author
+                author {
+                    data {
+                        slug
+                        name
+                    }
+                }
                 PostMarkdown
                 date(formatString: "MMMM DD, YYYY")
                 image {
@@ -183,6 +201,11 @@ export const query = graphql`
                         }
                     }
                 }
+            }
+        }
+        site {
+            siteMetadata {
+              title
             }
         }
     }
