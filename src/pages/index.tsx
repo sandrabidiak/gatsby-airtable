@@ -52,6 +52,8 @@ const BlogIndex: FunctionComponent<Props> = (props) => {
 
     const classes = useStyles()
 
+    typeof window !== 'undefined' && console.log( 'Language Component', window.navigator.language)
+
     return (
         <Layout location={window.location} title={siteTitle}>
             {edges.map(({ node: post }, index) => {
